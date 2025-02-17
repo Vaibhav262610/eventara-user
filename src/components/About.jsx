@@ -56,7 +56,7 @@ const About = () => {
                 </div>
 
                 {/* Right Side - MetaBalls */}
-                <div className="flex justify-center items-center">
+                <div className="mt-24 ml-24">
                     <MetaBalls
                         color="#ffffff"
                         cursorBallColor="#ffffff"
@@ -64,9 +64,9 @@ const About = () => {
                         ballCount={15}
                         animationSize={30}
                         enableMouseInteraction={true}
-                        hoverSmoothness={0.05}
+                        hoverSmoothness={0.131}
                         clumpFactor={1}
-                        speed={0.3}
+                        speed={0.5}
                     />
                 </div>
             </div>

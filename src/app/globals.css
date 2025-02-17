@@ -26,3 +26,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #c1ed14;
 }
+
+.canvas-container {
+  width: 100%;
+  height: 500px;
+  /* Set a fixed height for the canvas */
+  background-color: #f0f0f0;
+  /* Set the desired background color */
+}

@@ -60,6 +60,7 @@ void main() {
 }
 `;
 
+
 const fragment = `#version 300 es
 precision highp float;
 uniform vec3 iResolution;
@@ -95,15 +96,22 @@ void main() {
   float m2 = getMetaBallValue(mouseW, iCursorBallSize, coord);
   float total = m1 + m2;
   float f = smoothstep(-1.0, 1.0, (total - 1.3) / min(1.0, fwidth(total)));
-  vec3 cFinal = vec3(0.0);
+
+  // Set background color to #121b22 if there is no metaball interaction
+  vec3 cFinal = (total <= 0.0) ? vec3(18.0/255.0, 27.0/255.0, 34.0/255.0) : vec3(0.0);
+
   if (total > 0.0) {
     float alpha1 = m1 / total;
     float alpha2 = m2 / total;
     cFinal = iColor * alpha1 + iCursorColor * alpha2;
   }
+
   outColor = vec4(cFinal * f, 1.0);
 }
 `;
+
+
+
 
 const MetaBalls = ({
     color = "#ffffff",
@@ -125,7 +133,9 @@ const MetaBalls = ({
         const dpr = 1;
         const renderer = new Renderer({ dpr, alpha: true, premultipliedAlpha: false });
         const gl = renderer.gl;
-        gl.clearColor(0, 0, 0, 0);
+        // gl.clearColor(0, 0, 0, 0);
+        gl.clearColor(0.1, 0.1, 0.1, 1.0); // Set background color to a dark gray (RGBA format)
+
         container.appendChild(gl.canvas);
 
         const camera = new Camera(gl, {
@@ -185,9 +195,12 @@ const MetaBalls = ({
 
         function resize() {
             if (!container) return;
-            const width = container.clientWidth;
-            const height = container.clientHeight;
+            // const width = container.clientWidth;
+            // const height = container.clientHeight;
+            const width = 500;
+            const height = 500;
             renderer.setSize(width * dpr, height * dpr);
+            // renderer.setSize(800, 1600);
             gl.canvas.style.width = width + "px";
             gl.canvas.style.height = height + "px";
             program.uniforms.iResolution.value.set(gl.canvas.width, gl.canvas.height, 0);
