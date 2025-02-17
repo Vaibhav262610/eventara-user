@@ -5,7 +5,11 @@
 
 body {
   font-family: "Bricolage Grotesque", serif;
-  background-color: #141414;
+  background-color: #121b22;
+}
+
+.nav {
+  font-family: 'Brigends Expanded', sans-serif;
 }
 
 ::selection {
