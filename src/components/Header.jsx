@@ -9,18 +9,38 @@ import { gsap } from 'gsap';
 
 const Header = () => {
     useEffect(() => {
-        // Animate the floating icons
-        gsap.fromTo('.floating-icon',
-            { y: 0, opacity: 0.5 },
-            {
-                y: -10, opacity: 1, duration: 3, repeat: -1, yoyo: true, ease: "easeInOut", stagger: 0.3
+        // Floating animation for icons
+        gsap.to('.floating-icon', {
+            y: -10,
+            opacity: 1,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "easeInOut",
+            stagger: 0.3
+        });
+
+        // Hover animation
+        document.querySelectorAll('.floating-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                gsap.to(icon, {
+                    scale: 1.5,
+                    rotation: 10,
+                    duration: 0.3,
+                    ease: "power3.out"
+                });
             });
 
-        // Hover effect for icons using GSAP
-        gsap.to('.floating-icon', {
-            scale: 1.2, rotation: 15, duration: 0.5, paused: true,
-            repeat: -1, yoyo: true
+            icon.addEventListener('mouseleave', () => {
+                gsap.to(icon, {
+                    scale: 1,
+                    rotation: 0,
+                    duration: 0.3,
+                    ease: "power3.out"
+                });
+            });
         });
+
     }, []);
 
     return (
@@ -38,27 +58,27 @@ const Header = () => {
                 />
             </div>
 
-            {/* ✅ Floating & Animated Icons */}
+            {/* ✅ Floating & Animated Icons with Interactive Hover */}
             <div className='absolute top-[10%] left-[15%] floating-icon'>
-                <PiCube className="text-[#00A991] text-6xl opacity-50 animate-pulse" />
+                <PiCube className="text-[#00A991] text-6xl opacity-50" />
             </div>
             <div className='absolute top-[20%] right-[10%] floating-icon'>
-                <PiCode className="text-[#FF6363] text-6xl opacity-50 animate-pulse" />
+                <PiCode className="text-[#FF6363] text-6xl opacity-50" />
             </div>
             <div className='absolute bottom-[25%] left-[10%] floating-icon'>
-                <PiGraph className="text-[#FFD700] text-6xl opacity-50 animate-pulse" />
+                <PiGraph className="text-[#FFD700] text-6xl opacity-50" />
             </div>
             <div className='absolute bottom-[15%] right-[20%] floating-icon'>
-                <PiLightbulb className="text-[#34D399] text-6xl opacity-50 animate-pulse" />
+                <PiLightbulb className="text-[#34D399] text-6xl opacity-50" />
             </div>
             <div className='absolute top-[45%] left-[30%] floating-icon'>
-                <PiUsers className="text-[#4F46E5] text-6xl opacity-50 animate-pulse" />
+                <PiUsers className="text-[#4F46E5] text-6xl opacity-50" />
             </div>
             <div className='absolute top-[55%] right-[25%] floating-icon'>
-                <PiRocket className="text-[#FF8700] text-6xl opacity-50 animate-pulse" />
+                <PiRocket className="text-[#FF8700] text-6xl opacity-50" />
             </div>
             <div className='absolute bottom-[10%] right-[10%] floating-icon'>
-                <PiGlobeHemisphereWest className="text-[#E6007A] text-6xl opacity-50 animate-pulse" />
+                <PiGlobeHemisphereWest className="text-[#E6007A] text-6xl opacity-50" />
             </div>
 
             {/* ✅ Centered Text */}

@@ -41,9 +41,11 @@ const Navbar = () => {
                     <button className='relative text-[#c1ed14e3] mt-3 duration-200 hover:text-[#c1ed1496] pb-2 after:content-[""] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#c1ed14] after:transition-all after:duration-300 hover:after:w-full'>
                         Organize an Event
                     </button>
-                    <button className='text-[#c1ed14] border-2 px-5 rounded-lg hover:bg-[#c1ed14] hover:text-black duration-200 py-2 border-[#c1ed14]'>
-                        Sign In
-                    </button>
+                    <Link href='/login'>
+                        <button className='text-[#c1ed14] border-2 px-5 rounded-lg hover:bg-[#c1ed14] hover:text-black duration-200 py-2 border-[#c1ed14]'>
+                            Sign In
+                        </button>
+                    </Link>
                 </div>
             </div>
         </div>
