@@ -26,21 +26,26 @@ const About = () => {
                 {/* Left Side - Text Content and Image */}
                 <div className="md:w-1/2 space-y-6 text-left flex flex-col justify-center">
                     <h2 className="text-5xl md:text-6xl font-extrabold uppercase leading-tight">
-                        Bringing <span className="text-[#c9f330]">Brands</span> To Life <br />
-                        With Strategy <span className="text-[#c9f330]">& Design.</span>
+                        Elevate Your <span className="text-[#c9f330]">Event Experience </span>
+                        With <span className="text-[#c9f330]">Eventara</span>
                     </h2>
 
                     <p className="ml-16 font-light text-gray-300 text-lg leading-relaxed border-l-4 border-[#c9f330] pl-4">
-                        We are one of the biggest agencies and have been helping our clients for
-                        over 10 years to solve design challenges. We always provide the best
-                        service to grow your company.
+                        **Eventara** transforms the way you plan and manage events. Whether it's a **hackathon, cultural fest,
+                        or networking night**, our platform ensures smooth coordination, automated check-ins, and real-time
+                        engagement. No more manual work—just seamless event execution at your fingertips.
+                    </p>
+
+                    <p className="ml-16 font-light text-gray-300 text-lg leading-relaxed border-l-4 border-[#c9f330] pl-4">
+                        Designed for organizers, attendees, and speakers alike, Eventara enhances interactions,
+                        maximizes participation, and simplifies event logistics—all in one place.
                     </p>
 
                     {/* 3D-style Image with Cropped Height */}
                     <div className="flex gap-24 ">
                         <motion.img
                             src="/image1.webp"
-                            alt="Abstract 3D"
+                            alt="Eventara Showcase"
                             className="w-[80%] md:w-[700px] mt-12 h-[400px] md:h-[400px] object-cover rounded-lg shadow-lg"
                             initial={{ scale: 0.9, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
@@ -48,9 +53,9 @@ const About = () => {
                         />
                         {/* Stats on the Left */}
                         <div className="flex flex-col mt-12">
-                            <Stat number="10" label="Years Experience" />
-                            <Stat number="55" label="Completed Projects" />
-                            <Stat number="200+" label="Happy Clients" />
+                            <Stat number="100+" label="Events Hosted" />
+                            <Stat number="5000+" label="Active Users" />
+                            <Stat number="50+" label="Partners & Sponsors" />
                         </div>
                     </div>
                 </div>
@@ -83,7 +88,7 @@ const Stat = ({ number, label }) => (
         transition={{ duration: 0.8 }}
     >
         <span className="text-7xl font-black">{number}</span>
-        <span className="nav flex-wrap text-white text-sm tracking-widest font-light ">{label}</span>
+        <span className="nav flex-wrap text-white text-sm tracking-widest font-light">{label}</span>
     </motion.div>
 );
 
