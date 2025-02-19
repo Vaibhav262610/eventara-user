@@ -8,7 +8,6 @@ connectDb();
 
 export async function POST(request) {
     try {
-        // Check if a user is already logged in (i.e., token is present in cookies)
         const token = request.cookies.get('token')?.value;
         if (token) {
             try {
@@ -18,34 +17,26 @@ export async function POST(request) {
                     { status: 403 }
                 );
             } catch (err) {
-                // Token is invalid or expired; continue with login process
+                console.error('Token verification failed:', err);
             }
         }
 
-        // Parse request body
         const reqBody = await request.json();
         const { email, password } = reqBody;
-        console.log(reqBody);
+        console.log('Request Body:', reqBody);
 
-        // Check if the user exists
         const user = await User.findOne({ email });
         if (!user) {
-            return NextResponse.json(
-                { error: 'USER DOES NOT EXIST' },
-                { status: 404 }
-            );
+            console.error('User not found');
+            return NextResponse.json({ error: 'USER DOES NOT EXIST' }, { status: 404 });
         }
 
-        // Validate password
         const validPassword = await bcryptjs.compare(password, user.password);
         if (!validPassword) {
-            return NextResponse.json(
-                { error: 'INVALID CREDENTIALS' },
-                { status: 401 }
-            );
+            console.error('Invalid password');
+            return NextResponse.json({ error: 'INVALID CREDENTIALS' }, { status: 401 });
         }
 
-        // Create token
         const tokenData = {
             id: user._id,
             username: user.username,
@@ -53,24 +44,27 @@ export async function POST(request) {
         };
 
         const newToken = jwt.sign(tokenData, process.env.TOKEN_SECRET, {
-            expiresIn: '1d',
+            expiresIn: '30m', // Token expires in 30 minutes
         });
 
-        // Send response with token in cookies
-        return new NextResponse(
+        const response = new NextResponse(
             JSON.stringify({
                 message: 'LOGGED IN SUCCESS',
                 success: true,
+                token: newToken, // Send token in response (for localStorage)
+                redirectTo: '/discover',
             }),
             {
                 status: 200,
                 headers: {
-                    'Set-Cookie': `token=${newToken}; HttpOnly; Path=/; Max-Age=86400; ${process.env.NODE_ENV === 'production' ? 'Secure;' : ''}`,
+                    'Set-Cookie': `token=${newToken}; HttpOnly; Path=/; Max-Age=1800; ${process.env.NODE_ENV === 'production' ? 'Secure;' : ''}`, // Cookie valid for 30 mins
                     'Content-Type': 'application/json',
                 },
             }
         );
+        return response;
     } catch (error) {
+        console.error('Error during login process:', error);
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 }
