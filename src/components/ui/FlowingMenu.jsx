@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { gsap } from 'gsap';
+import Magnet from './Magnet';
+import { ArrowDownRight } from 'lucide-react';
 
 function FlowingMenu({ items = [] }) {
     return (
@@ -15,7 +17,7 @@ function FlowingMenu({ items = [] }) {
     );
 }
 
-function MenuItem({ link, text, image }) {
+function MenuItem({ link, text, para, image }) {
     const itemRef = React.useRef(null);
     const marqueeRef = React.useRef(null);
     const marqueeInnerRef = React.useRef(null);
@@ -61,7 +63,7 @@ function MenuItem({ link, text, image }) {
 
     const repeatedMarqueeContent = Array.from({ length: 4 }).map((_, idx) => (
         <React.Fragment key={idx}>
-            <span className="text-[#060606] uppercase font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
+            <span className="text-[#060606] nav uppercase font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
                 {text}
             </span>
             <div
@@ -72,15 +74,22 @@ function MenuItem({ link, text, image }) {
     ));
 
     return (
-        <div className="flex-1 relative overflow-hidden text-center shadow-[0_-1px_0_0_#fff]" ref={itemRef}>
+        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="flex-1 cursor-pointer items-center justify-around w-full  flex relative overflow-hidden text-center shadow-[0_-1px_0_0_#fff]" ref={itemRef}>
             <a
-                className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-white text-[4vh] hover:text-[#060606] focus:text-white focus-visible:text-[#060606]"
+                className="flex  items-center justify-center h-full relative cursor-pointer uppercase no-underline font-light text-[#ffffffb4] text-[4vh] hover:text-[#060606] focus:text-white focus-visible:text-[#060606]  nav  "
                 href={link}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
             >
-                {text}
+                {text}<span className='text-[#c9f330]'>.</span>
             </a>
+            <h1 className='text-white  w-96 text-left'>{para}</h1>
+            <div className="mt-6 md:mt-0">
+                <Magnet padding={50} disabled={false} magnetStrength={5}>
+                    <button className="border  text-white w-28 h-28 flex items-center justify-center rounded-full transition hover:scale-110">
+                        {/* <p>Star React Bits on GitHub!</p> */}
+                        <ArrowDownRight size={56} className="" />
+                    </button>
+                </Magnet>
+            </div>
             <div
                 className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white translate-y-[101%]"
                 ref={marqueeRef}
