@@ -7,6 +7,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { PiLightbulb, PiGlobeHemisphereWest } from "react-icons/pi";
 import { gsap } from "gsap";
 import Magnet from "./ui/Magnet";
+import Link from "next/link";
 
 const Header = () => {
     useEffect(() => {
@@ -55,12 +56,14 @@ const Header = () => {
 
             {/* ✅ Call-to-Action Button */}
             <div className="mt-12 flex items-center gap-3 relative z-10">
-                <Magnet padding={1000} disabled={false} magnetStrength={40}>
-                    <button className="flex items-center gap-4 bg-[#93d6e1] text-xl py-4 px-8 rounded-full text-black cursor-pointer hover:bg-[#6cb3c1] transition-all duration-200">
-                        <h1 className="font-bold">Join Now</h1>
-                        <FaArrowRightLong />
-                    </button>
-                </Magnet>
+                <Link href='/signup'>
+                    <Magnet padding={1000} disabled={false} magnetStrength={40}>
+                        <button className="flex items-center gap-4 bg-[#93d6e1] text-xl py-4 px-8 rounded-full text-black cursor-pointer hover:bg-[#6cb3c1] transition-all duration-200">
+                            <h1 className="font-bold">Join Now</h1>
+                            <FaArrowRightLong />
+                        </button>
+                    </Magnet>
+                </Link>
             </div>
         </div>
     );
