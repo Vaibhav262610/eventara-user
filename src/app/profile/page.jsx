@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const randomProfilePics = [
     "https://i.pravatar.cc/150?img=1",
@@ -84,12 +85,22 @@ const page = () => {
                     {user.data.username}
                 </h2>
                 <p className="text-gray-600">{user.data.email}</p>
-                <button
-                    onClick={() => router.push("/discover")}
-                    className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                >
-                    Go to Discover
-                </button>
+                <div className="flex flex-col gap-2">
+                    <button
+                        onClick={() => router.push("/discover")}
+                        className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                        Go to Discover
+                    </button>
+                    <Link href='/logout'>
+                        <button
+                            onClick={() => router.push("/discover")}
+                            className="mt-4 px-6 py-2 w-full bg-red-500 text-white rounded-md hover:bg-red-600"
+                        >
+                            Log Out
+                        </button>
+                    </Link>
+                </div>
             </div>
         </div>
     );

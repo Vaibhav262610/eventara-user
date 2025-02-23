@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 export const metadata = {
-  title: "Eventara - Think, plan and track all in one place ",
+  title: "Discover | Eventara",
   description: "Eventara is a next-generation AI-powered event management platform designed to streamline hackathons, coding contests, and university events. It provides a seamless experience for both organizers and participants by integrating automated registrations, QR-based check-ins, live leaderboards, real-time notifications, and one-click certificate distribution—all in one place!",
 };
 

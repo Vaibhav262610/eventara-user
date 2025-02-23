@@ -1,21 +1,52 @@
-"use client"
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const page = () => {
+const Page = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeButton, setActiveButton] = useState("Discover");
+    const [events, setEvents] = useState([]);  // State to store event data
 
     const buttons = ["Discover", "Events", "Builders"];
+
+    const randomImages = [
+        "https://devfolio.co/_next/image?url=%2Fbrand-blocks%2Fethdenver2025%2Fdiscover.png&w=1440&q=100",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREB7VXfX0d4Pu9GZhn0pCC-MovE3dG5Fwsdn_tanQHW7yGKBXu",
+        "https://t3.ftcdn.net/jpg/03/27/84/86/360_F_327848677_rKdWq48QDo8apoN6kZlWa241HRlw5aWn.jpg",
+    ];
+
+    const getRandomImage = () => {
+        return randomImages[Math.floor(Math.random() * randomImages.length)];
+    };
+
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
     };
 
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await fetch("/api/events/event-data");
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log("Fetched events:", data);  // Log the response data
+                    setEvents(data);  // Set events data
+                } else {
+                    console.error("Failed to fetch events:", response.status);
+                }
+            } catch (error) {
+                console.error("Error fetching events:", error);
+            }
+        };
+
+        fetchEvents();
+    }, []);
+
     return (
-        <div className="p-6 font-sans  min-h-screen">
+        <div className="p-6 font-sans min-h-screen">
             {/* Navigation Bar */}
-            <nav className="flex justify-center gap-20 mt-32 flex-col items-center  p-4 rounded-lg ">
-                <div className="flex text-xl font-semibold ">
+            <nav className="flex justify-center gap-20 mt-32 flex-col items-center p-4 rounded-lg">
+                <div className="flex text-xl font-semibold">
                     {buttons.map((btn) => (
                         <button
                             key={btn}
@@ -40,30 +71,44 @@ const page = () => {
                 </div>
             </nav>
 
-            {/* Main Event Card */}
-            <div className="w-full flex flex-col   items-center">
-                <div className=" p-6 mt-12 flex gap-24 w-fit   text-white rounded-lg shadow-md">
-                    <img
-                        src="https://devfolio.co/_next/image?url=%2Fbrand-blocks%2Fethdenver2025%2Fdiscover.png&w=1440&q=100" // Replace with actual image path
-                        alt="ETHDenver 2025"
-                        className="rounded-lg w-[50rem] h-[30rem] object-cover"
-                    />
-                    <div className="flex flex-col justify-evenly">
-                        <h2 className="text-4xl text-gray-200  font-bold mt-4">ETHDenver 2025</h2>
-                        <p className="text-gray-300 w-[20rem] ">Largest and Longest Running #BUIDLathon in the World 🦄 🦬 ⛰️</p>
-                        <div className="flex flex-col leading-5">
-                            <p className="mt-2 text-xl font-semibold">Happening: </p>
-                            <p className="mt-2 text-[#34D399] font-semibold">Denver, United States </p>
+            {/* Main Event Cards */}
+            {events.length > 0 ? (
+                <div className="w-full flex flex-col items-center">
+                    {events.map((event) => (
+                        <div key={event._id} className="p-6 mt-12 flex gap-24 w-fit text-white rounded-lg shadow-md">
+                            <img
+                                src={getRandomImage()}  // Random image URL from the list
+                                alt={event.name || "Event image"}
+                                className="rounded-lg w-[50rem] h-[30rem] object-cover"
+                            />
+                            <div className="flex flex-col justify-evenly">
+                                <h2 className="text-4xl text-gray-200 font-bold mt-4">{event.name}</h2>
+                                <p className="text-gray-300 w-[20rem]">{event.description}</p>
+                                <div className="flex flex-col leading-5">
+                                    <p className="mt-2 text-xl font-semibold">Happening: </p>
+                                    <p className="mt-2 text-[#34D399] font-semibold">{event.location}</p>
+                                </div>
+                                <div className="mt-4 flex justify-between items-start flex-col text-left">
+                                    <p className="text-blue-200 text-2xl">
+                                        Applications closes in:  <br />
+                                        <span className="text-blue-300"></span>
+                                    </p>
+                                    <button className="bg-blue-600 text-white h-16 nav font-light w-full rounded-lg mt-20">
+                                        Go to dashboard
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="mt-4 flex justify-between items-start flex-col text-left">
-                            <p className="text-blue-200 text-2xl">Applications close in <br /><span className="text-blue-300">4d:15h:30m</span> </p>
-                            <button className="bg-blue-600 text-white h-16 nav font-light w-full rounded-lg mt-20">Go to dashboard</button>
-                        </div>
-                    </div>
+                    ))}
                 </div>
-            </div>
+            ) : (
+                <div className='w-full h-[60vh] text-3xl flex  justify-center items-center nav text-white font-thin'>
+                    <p>Loading...</p>
+                </div>
+            )}
+
         </div>
     );
 };
 
-export default page;
+export default Page;

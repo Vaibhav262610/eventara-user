@@ -3,22 +3,32 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import MetaBalls from "./ui/MetaBalls";
+// Make sure this path exists and points to the correct IconCloud component
+import { IconCloud } from "@/components/magicui/icon-cloud";
 
 const About = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleMouseMove = (e) => {
-            const { clientX, clientY } = e;
-            setMousePos({ x: clientX, y: clientY });
+            setMousePos({ x: e.clientX, y: e.clientY });
         };
 
         window.addEventListener("mousemove", handleMouseMove);
-
-        return () => {
-            window.removeEventListener("mousemove", handleMouseMove);
-        };
+        return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
+
+    // Define slugs globally so they are accessible
+    const slugs = [
+        "typescript", "javascript", "dart", "java", "react", "flutter", "android",
+        "html5", "css3", "nodedotjs", "express", "nextdotjs", "prisma", "amazonaws",
+        "postgresql", "firebase", "nginx", "vercel", "testinglibrary", "jest",
+        "cypress", "docker", "git", "jira", "github", "gitlab",
+        "visualstudiocode", "androidstudio", "sonarqube", "figma",
+    ];
+
+    // Create image URLs for IconCloud
+    const images = slugs.map((slug) => `https://cdn.simpleicons.org/${slug}/${slug}`);
 
     return (
         <section className="relative bg-[#11181F] text-white h-screen flex justify-center items-center">
@@ -31,9 +41,8 @@ const About = () => {
                     </h2>
 
                     <p className="ml-16 font-light text-gray-300 text-lg leading-relaxed border-l-4 border-[#c9f330] pl-4">
-                        **Eventara** transforms the way you plan and manage events. Whether it's a **hackathon, cultural fest,
-                        or networking night**, our platform ensures smooth coordination, automated check-ins, and real-time
-                        engagement. No more manual work—just seamless event execution at your fingertips.
+                        <strong>Eventara</strong> transforms the way you plan and manage events. Whether it's a <strong>hackathon, cultural fest, or networking night</strong>,
+                        our platform ensures smooth coordination, automated check-ins, and real-time engagement.
                     </p>
 
                     <p className="ml-16 font-light text-gray-300 text-lg leading-relaxed border-l-4 border-[#c9f330] pl-4">
@@ -42,7 +51,7 @@ const About = () => {
                     </p>
 
                     {/* 3D-style Image with Cropped Height */}
-                    <div className="flex gap-24 ">
+                    <div className="flex gap-24">
                         <motion.img
                             src="/image1.webp"
                             alt="Eventara Showcase"
@@ -60,19 +69,11 @@ const About = () => {
                     </div>
                 </div>
 
-                {/* Right Side - MetaBalls */}
-                <div className="mt-24 ml-24">
-                    <MetaBalls
-                        color="#ffffff"
-                        cursorBallColor="#ffffff"
-                        cursorBallSize={2}
-                        ballCount={15}
-                        animationSize={30}
-                        enableMouseInteraction={true}
-                        hoverSmoothness={0.131}
-                        clumpFactor={1}
-                        speed={0.5}
-                    />
+                {/* Right Side - MetaBalls & IconCloud */}
+                <div className="mb-24 ml-24">
+                    <div className="relative flex size-full items-center justify-center overflow-hidden">
+                        <IconCloud images={images} />
+                    </div>
                 </div>
             </div>
         </section>

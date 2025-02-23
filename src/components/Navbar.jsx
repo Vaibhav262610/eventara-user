@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
+import { jwtDecode } from "jwt-decode";
 
 gsap.registerPlugin(Draggable);
 
@@ -16,11 +17,30 @@ const Navbar = () => {
         const handleScroll = () => setIsScrolled(window.scrollY > 50);
         window.addEventListener("scroll", handleScroll);
 
-        // Check if authToken is present in localStorage or cookies
-        const token = localStorage.getItem("authToken") || document.cookie.includes("authToken=");
-        setIsLoggedIn(!!token);
+        const checkAuthToken = () => {
+            const token = localStorage.getItem("authToken") || getCookie("authToken");
+            if (token) {
+                try {
+                    const decoded = jwtDecode(token);
+                    const currentTime = Math.floor(Date.now() / 1000);
+                    if (decoded.exp < currentTime) {
+                        console.warn("Token expired! Reloading page...");
+                        localStorage.removeItem("authToken");
+                        document.cookie = "authToken=; path=/; max-age=0;";
+                        setTimeout(() => window.location.reload(), 2000);
+                    } else {
+                        setIsLoggedIn(true);
+                    }
+                } catch (error) {
+                    console.error("Invalid token:", error);
+                    localStorage.removeItem("authToken");
+                    document.cookie = "authToken=; path=/; max-age=0;";
+                }
+            }
+        };
 
-        // Make logo draggable
+        checkAuthToken();
+
         Draggable.create(logoRef.current, {
             type: "x,y",
             inertia: true,
@@ -32,8 +52,18 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const getCookie = (name) => {
+        if (typeof document === "undefined") return null;
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift());
+        return null;
+    };
+
+
     return (
         <div className={`fixed top-0 left-0 w-full transition-all duration-300 z-50 ${isScrolled ? "bg-[#0a0a0a] shadow-lg" : "bg-transparent"}`}>
+
             <div className="flex w-full justify-evenly items-center py-5">
                 <Link href="/">
                     <h1 ref={logoRef} className="text-4xl font-black text-white cursor-grab">
@@ -67,7 +97,7 @@ const Navbar = () => {
                 <div className="text-xl font-semibold gap-12 flex">
                     {isLoggedIn ? (
                         <>
-                            <Link href="https://org.eventara.vercel.app">
+                            <Link href="https://eventara-organizer.vercel.app" target="_blank">
                                 <button className="relative text-[#d1d1d1] mt-3 duration-200 hover:text-[#d1d1d1] pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                                     Organize an Event
                                 </button>

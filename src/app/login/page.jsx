@@ -27,11 +27,11 @@ const page = () => {
                     return;
                 }
 
-                // Store token in localStorage
+                // Store token in localStorage (for accessing token on client-side)
                 localStorage.setItem("authToken", data.token);
 
                 // Store token in cookies (valid for 30 mins)
-                document.cookie = `authToken=${data.token}; path=/; max-age=1800`;
+                document.cookie = `authToken=${data.token}; path=/; max-age=1800; Secure; SameSite=Strict`; // Added Secure and SameSite for better cookie security
 
                 toast.success("Login successful!");
 
@@ -47,7 +47,6 @@ const page = () => {
             toast.error("Something went wrong. Please try again.");
         }
     };
-
 
     return (
         <div className="relative min-h-screen flex justify-center items-center">
