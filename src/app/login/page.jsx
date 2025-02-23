@@ -21,21 +21,14 @@ const page = () => {
             const data = await response.json();
 
             if (response.ok) {
-                // Check if token exists in the response
                 if (!data.token) {
                     toast.error("Login failed: No token received");
                     return;
                 }
 
-                // Store token in localStorage (for accessing token on client-side)
                 localStorage.setItem("authToken", data.token);
-
-                // Store token in cookies (valid for 30 mins)
-                document.cookie = `authToken=${data.token}; path=/; max-age=1800; Secure; SameSite=Strict`; // Added Secure and SameSite for better cookie security
-
+                document.cookie = `authToken=${data.token}; path=/; max-age=1800; Secure; SameSite=Strict`;
                 toast.success("Login successful!");
-
-                // Redirect to Discover page after a short delay
                 setTimeout(() => {
                     window.location.href = "/discover";
                 }, 1500);
@@ -49,9 +42,9 @@ const page = () => {
     };
 
     return (
-        <div className="relative min-h-screen flex justify-center items-center">
+        <div className="relative min-h-screen flex justify-center items-center px-4 sm:px-6 lg:px-8">
             {/* Particles Background */}
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
+            <div className="absolute inset-0">
                 <Particles
                     particleColors={['#ffffff', '#ffffff']}
                     particleCount={200}
@@ -65,26 +58,26 @@ const page = () => {
             </div>
 
             {/* Login Form */}
-            <div className="relative z-10 w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+            <div className="relative z-10 w-full max-w-md bg-white p-6 sm:p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-center mb-6 text-teal-500">Login to Eventara</h2>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                         <input
                             type="email"
                             id="email"
-                            className="mt-2 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                         <input
                             type="password"
                             id="password"
-                            className="mt-2 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="mt-1 p-3 w-full border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
@@ -105,9 +98,9 @@ const page = () => {
             </div>
 
             {/* Toast container */}
-            <ToastContainer /> {/* Correct placement */}
+            <ToastContainer />
         </div>
     )
 }
 
-export default page
+export default page;
