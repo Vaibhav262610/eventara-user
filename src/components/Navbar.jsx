@@ -71,20 +71,20 @@ const Navbar = () => {
                     </h1>
                 </Link>
                 {isLoggedIn ? <div className="flex text-[#d1d1d1] ml-12 gap-8 text-lg">
-                    <Link href="/events" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
+                    <Link href="/discover" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>Events</h2>
                     </Link>
                     <Link href="/about" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>About</h2>
                     </Link>
-                    <Link href="/discover" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
-                        <h2>Discover</h2>
-                    </Link>
                     <Link href="/community" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>Community</h2>
                     </Link>
+                    <Link href="https://eventara-organizer.vercel.app" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
+                        <h2>Create</h2>
+                    </Link>
                 </div> : <div className="flex text-[#d1d1d1] ml-12 gap-8 text-lg">
-                    <Link href="/events" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
+                    <Link href="/discover" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>Events</h2>
                     </Link>
                     <Link href="/about" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
