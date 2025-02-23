@@ -30,6 +30,7 @@ const Footer = () => {
             {/* Footer Bottom */}
             <div className="mt-10 border-t border-gray-500 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm pt-5">
                 <p>Copyright © 2025 EVENTRON. All rights reserved.</p>
+                <p>Designed & Developed By <span className="font-black">Vaibhav Rajpoot 💖 </span></p>
                 <div className="flex gap-6">
                     <a href="#" className="hover:text-white transition">
                         Terms of Use

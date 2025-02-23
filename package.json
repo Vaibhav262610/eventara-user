@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^8.2.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/rapier": "^1.5.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.0",
     "class-variance-authority": "^0.7.1",
@@ -22,15 +25,16 @@
     "magic-ui": "^0.1.0",
     "meshline": "^3.3.1",
     "mongoose": "^8.10.1",
-    "next": "15.1.7",
+    "next": "^15.1.7",
     "nodemailer": "^6.10.0",
     "ogl": "^1.0.11",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^5.4.0",
     "react-toastify": "^11.0.3",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
+    "three": "^0.167.1",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

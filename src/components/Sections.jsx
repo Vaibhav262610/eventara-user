@@ -3,13 +3,13 @@ import FlowingMenu from './ui/FlowingMenu';
 
 const demoItems = [
     {
-        link: '#',
+        link: 'https://eventara-organizer.vercel.app/',
         text: 'Organize',
         para: "Seamlessly plan and manage events, from corporate conferences to private gatherings. Our platform provides all the tools you need for a successful event.",
         image: 'https://picsum.photos/600/400?random=1'
     },
     {
-        link: '#',
+        link: '/signup',
         text: 'Join',
         para: "Join exciting events, connect with like-minded individuals, and explore opportunities to engage in workshops, meetups, and festivals.",
         image: 'https://picsum.photos/600/400?random=2'
