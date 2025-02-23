@@ -102,8 +102,15 @@ const Page = () => {
                     ))}
                 </div>
             ) : (
-                <div className='w-full h-[60vh] text-3xl flex  justify-center items-center nav text-white font-thin'>
-                    <p>Loading...</p>
+                <div className='w-full h-[60vh] text-3xl flex flex-col justify-center items-center nav text-white font-thin'>
+                    <img
+                        className="w-42 h-42 select-none    "
+                        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMng0bjlnb3Z1Zmo1N3kxcmoyemw0M3MwNGs3amszemdjbjJtM2FydyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/6KKKVerzrhjRrClNKt/giphy.gif"
+                        alt="Loading..."
+                    />
+                    <p className="mt-4 nav font-thin text-3xl text-white">
+                        Loading...
+                    </p>
                 </div>
             )}
 
