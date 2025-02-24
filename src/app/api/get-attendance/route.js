@@ -1,9 +1,9 @@
-import { connectToDatabase } from "@/db/db";
+import { connectDb } from "@/db/db";
 import Attendance from "@/models/Attendance";
 
 export async function GET() {
     try {
-        await connectToDatabase();
+        await connectDb();
         const records = await Attendance.find({});
         return Response.json(records);
     } catch (error) {
