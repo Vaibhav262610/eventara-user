@@ -59,8 +59,15 @@ const page = () => {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-screen text-xl">
-                Loading...
+            <div className="flex justify-center flex-col items-center h-screen bg-[#121b22]/10">
+                <img
+                    className="w-42 h-42 select-none    "
+                    src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMng0bjlnb3Z1Zmo1N3kxcmoyemw0M3MwNGs3amszemdjbjJtM2FydyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/6KKKVerzrhjRrClNKt/giphy.gif"
+                    alt="Loading..."
+                />
+                <p className="mt-4 nav font-thin text-3xl text-white">
+                    Loading...
+                </p>
             </div>
         );
     }
@@ -87,10 +94,10 @@ const page = () => {
                 <p className="text-gray-600">{user.data.email}</p>
                 <div className="flex flex-col gap-2">
                     <button
-                        onClick={() => router.push("/discover")}
+                        onClick={() => router.push("/scan")}
                         className="mt-4 px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                     >
-                        Go to Discover
+                        Scan Attendance
                     </button>
                     <Link href='/logout'>
                         <button

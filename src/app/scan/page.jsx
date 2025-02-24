@@ -36,7 +36,7 @@ export default function ScanQR() {
 
                 try {
                     // Send the scanned student ID to the API
-                    const res = await fetch("https://eventara-user.vercel.app/api/mark-attendance", {
+                    const res = await fetch("/api/mark-attendance", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ studentId }), // Send the decoded studentId
@@ -69,24 +69,25 @@ export default function ScanQR() {
     }, [router]);
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center text-black bg-gray-100 p-6">
-            <h1 className="text-2xl font-bold mb-4">Scan QR Code</h1>
-
-            {loading ? (
-                <p className="mt-4 text-blue-600 font-semibold text-lg">Scanning... Please wait.</p>
-            ) : (
-                <>
-                    {!showMessage && !errorMessage ? (
-                        <div id="reader" className="w-72 h-72 bg-white rounded-lg shadow-md"></div>
-                    ) : errorMessage ? (
-                        <p className="mt-4 text-red-600 font-semibold text-lg">{errorMessage}</p>
-                    ) : (
-                        <p className="mt-4 text-green-600 font-semibold text-lg">
-                            ✅ Attendance Marked! Redirecting...
-                        </p>
-                    )}
-                </>
-            )}
+        <div className="min-h-screen flex flex-col items-center justify-center text-white  p-6">
+            <h1 className="text-4xl nav font-thin mb-4">Scan QR Code</h1>
+            <div className="text-black">
+                {loading ? (
+                    <p className="mt-4 text-blue-600 font-semibold text-lg">Scanning... Please wait.</p>
+                ) : (
+                    <>
+                        {!showMessage && !errorMessage ? (
+                            <div id="reader" className="w-72 h-72 bg-white rounded-lg shadow-md"></div>
+                        ) : errorMessage ? (
+                            <p className="mt-4 text-red-600 font-semibold text-lg">{errorMessage}</p>
+                        ) : (
+                            <p className="mt-4 text-green-600 font-semibold text-lg">
+                                ✅ Attendance Marked! Redirecting...
+                            </p>
+                        )}
+                    </>
+                )}
+            </div>
         </div>
     );
 }
