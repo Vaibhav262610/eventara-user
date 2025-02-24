@@ -36,7 +36,7 @@ export default function ScanQR() {
 
                 try {
                     // Send the scanned student ID to the API
-                    const res = await fetch("/api/mark-attendance", {
+                    const res = await fetch("https://eventara-user.vercel.app/api/mark-attendance", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ studentId }), // Send the decoded studentId
