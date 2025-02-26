@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import withAuth from "@/lib/withAuth";
 
 const randomProfilePics = [
     "https://i.pravatar.cc/150?img=1",
@@ -113,4 +114,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default withAuth(page);

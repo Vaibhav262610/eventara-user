@@ -1,5 +1,7 @@
 "use client";
 
+import withAuth from "@/lib/withAuth";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const Page = () => {
@@ -29,8 +31,7 @@ const Page = () => {
                 const response = await fetch("/api/events/event-data");
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Fetched events:", data);  // Log the response data
-                    setEvents(data);  // Set events data
+                    setEvents(data);
                 } else {
                     console.error("Failed to fetch events:", response.status);
                 }
@@ -38,7 +39,6 @@ const Page = () => {
                 console.error("Error fetching events:", error);
             }
         };
-
         fetchEvents();
     }, []);
 
@@ -84,33 +84,19 @@ const Page = () => {
                             <div className="flex flex-col justify-evenly">
                                 <h2 className="text-4xl text-gray-200 font-bold mt-4">{event.name}</h2>
                                 <p className="text-gray-300 w-[20rem]">{event.description}</p>
-                                <div className="flex flex-col leading-5">
-                                    <p className="mt-2 text-xl font-semibold">Happening: </p>
-                                    <p className="mt-2 text-[#34D399] font-semibold">{event.location}</p>
-                                </div>
-                                <div className="mt-4 flex justify-between items-start flex-col text-left">
-                                    <p className="text-blue-200 text-2xl">
-                                        Applications closes in:  <br />
-                                        <span className="text-blue-300"></span>
-                                    </p>
-                                    <button className="bg-blue-600 text-white h-16 nav font-light w-full rounded-lg mt-20">
+                                <p className="mt-2 text-xl font-semibold">Location: {event.location}</p>
+                                <Link href={`/event-dashboard/${event._id}`}>
+                                    <button className="bg-blue-600 text-white h-16 px-8 font-light w-full rounded-lg mt-20">
                                         Go to dashboard
                                     </button>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     ))}
                 </div>
             ) : (
-                <div className='w-full h-[60vh] text-3xl flex flex-col justify-center items-center nav text-white font-thin'>
-                    <img
-                        className="w-42 h-42 select-none    "
-                        src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMng0bjlnb3Z1Zmo1N3kxcmoyemw0M3MwNGs3amszemdjbjJtM2FydyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/6KKKVerzrhjRrClNKt/giphy.gif"
-                        alt="Loading..."
-                    />
-                    <p className="mt-4 nav font-thin text-3xl text-white">
-                        Loading...
-                    </p>
+                <div className="w-full h-[60vh] flex flex-col justify-center items-center text-white font-thin">
+                    <p>Loading...</p>
                 </div>
             )}
 
@@ -118,4 +104,4 @@ const Page = () => {
     );
 };
 
-export default Page;
+export default withAuth(Page);

@@ -2,8 +2,9 @@
 import { useEffect, useState, useRef } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { useRouter } from "next/navigation";
+import withAuth from "@/lib/withAuth";
 
-export default function ScanQR() {
+const ScanQR = () => {
     const router = useRouter();
     const [scannedId, setScannedId] = useState(""); // Store scanned student ID
     const [showMessage, setShowMessage] = useState(false); // Show success or error message
@@ -91,3 +92,5 @@ export default function ScanQR() {
         </div>
     );
 }
+
+export default withAuth(ScanQR)
