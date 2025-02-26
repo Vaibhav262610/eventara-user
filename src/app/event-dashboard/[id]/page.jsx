@@ -50,10 +50,22 @@ const EventDashboard = () => {
     if (!event) return <p>No event found!</p>;
 
     return (
-        <div className="flex justify-center items-center w-full h-screen text-white nav font-thin flex-col">
-            <h1>{event.name}</h1>
-            <p>{event.about}</p>
-            <p>Location: {event.location}</p>
+        // <div className="flex justify-center items-center w-full h-screen text-white nav font-thin flex-col">
+        //     <h1>{event.name}</h1>
+        //     <p>{event.about}</p>
+        //     <p>Location: {event.location}</p>
+        // </div>
+        <div>
+            <div></div>
+            <div className="bg-gray-500/50 flex flex-col text-white w-fit p-10 rounded-md border-t-[1.6rem] border-t-blue-500">
+                <h1 className="font-black text-2xl">{event.name}</h1>
+                <h2 className="text-white/40 text-xl font-semibold mt-4 mb-3">Event Starts: </h2>
+                <p>{event.about}</p>
+                <h2 className="text-white/40 text-xl font-semibold mt-4 mb-3" >Event Ends: </h2>
+                <p>{event.about}</p>
+                <h2 className="text-white/40 text-xl font-semibold mt-4 mb-3">At: </h2>
+                <p>{event.location}</p>
+            </div>
         </div>
     );
 };
