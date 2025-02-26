@@ -1,18 +1,20 @@
 "use client"
 import Particles from '@/components/ui/Particles'
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify'; // Correct import
-import 'react-toastify/dist/ReactToastify.css'; // Import the toast CSS
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const page = () => {
+const Page = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false); // Loading state
 
     const handleSubmit = async (event) => {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
+        setLoading(true); // Start loading
 
         try {
-            const response = await fetch("api/users/login", {
+            const response = await fetch("/api/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -23,12 +25,14 @@ const page = () => {
             if (response.ok) {
                 if (!data.token) {
                     toast.error("Login failed: No token received");
+                    setLoading(false);
                     return;
                 }
 
                 localStorage.setItem("authToken", data.token);
                 document.cookie = `authToken=${data.token}; path=/; max-age=1800; Secure; SameSite=Strict`;
                 toast.success("Login successful!");
+
                 setTimeout(() => {
                     window.location.href = "/discover";
                 }, 1500);
@@ -38,6 +42,8 @@ const page = () => {
         } catch (error) {
             console.error("Login error:", error);
             toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false); // Stop loading
         }
     };
 
@@ -85,9 +91,20 @@ const page = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none"
+                        className={`w-full py-3 rounded-md text-white focus:outline-none flex justify-center items-center ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                        disabled={loading}
                     >
-                        Log In
+                        {loading ? (
+                            <div className="flex items-center gap-2">
+                                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4l4-4-4-4v4a12 12 0 00-12 12h4z"></path>
+                                </svg>
+                                Logging in...
+                            </div>
+                        ) : (
+                            "Log In"
+                        )}
                     </button>
                 </form>
                 <div className="text-center mt-4">
@@ -103,4 +120,4 @@ const page = () => {
     )
 }
 
-export default page;
+export default Page;
