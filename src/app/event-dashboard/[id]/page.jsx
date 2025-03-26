@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import withAuth from "@/lib/withAuth";
 import { FaUser, FaGraduationCap, FaBolt, FaLink, FaPhone } from "react-icons/fa";
+import Link from "next/link";
 
 const EventDashboard = () => {
     const params = useParams();
@@ -54,7 +55,9 @@ const EventDashboard = () => {
                     <InfoItem icon={<FaLink />} title="Links" text="Your online profile links." />
                     <InfoItem icon={<FaPhone />} title="Contact" text="Your city, email, and phone number." />
                 </div>
-                <button className="w-full bg-blue-600  text-white py-4 mt-6 rounded-lg hover:bg-blue-700">Continue to the application</button>
+                <Link href='/form-application'>
+                    <button className="w-full bg-blue-600  text-white py-4 mt-6 rounded-lg hover:bg-blue-700">Continue to the application</button>
+                </Link>
             </div>
 
             {/* Right Section */}

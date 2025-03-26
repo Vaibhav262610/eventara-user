@@ -14,10 +14,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    // Simulating an async operation, e.g., fetching data
     setTimeout(() => {
-      setIsLoading(false); // Set isLoading to false after 3 seconds
-    }, 3000); // Adjust the delay as needed
+      setIsLoading(false);
+    }, 3000);
   }, []);
 
   if (isLoading) {

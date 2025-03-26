@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { jwtDecode } from "jwt-decode";
+import { User } from "lucide-react";
 
 gsap.registerPlugin(Draggable);
 
@@ -60,7 +61,6 @@ const Navbar = () => {
         return null;
     };
 
-
     return (
         <div className={`fixed top-0 left-0 w-full transition-all duration-300 z-50 ${isScrolled ? "bg-[#0a0a0a] shadow-lg" : "bg-transparent"}`}>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
                         Eventara.
                     </h1>
                 </Link>
-                {isLoggedIn ? <div className="flex text-[#d1d1d1] ml-12 gap-8 text-lg">
+                <div className="flex text-[#d1d1d1] ml-12 gap-8 text-lg">
                     <Link href="/discover" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>Events</h2>
                     </Link>
@@ -80,21 +80,8 @@ const Navbar = () => {
                     <Link href="/community" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
                         <h2>Community</h2>
                     </Link>
-                    <Link href="https://eventara-organizer.vercel.app" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
-                        <h2>Create</h2>
-                    </Link>
-                </div> : <div className="flex text-[#d1d1d1] ml-12 gap-8 text-lg">
-                    <Link href="/discover" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
-                        <h2>Events</h2>
-                    </Link>
-                    <Link href="/about" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
-                        <h2>About</h2>
-                    </Link>
-                    <Link href="/community" className="relative hover:text-white/80 mt-3 duration-200 pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-0.5 after:bg-[#d1d1d1] after:transition-all after:duration-300 hover:after:w-full">
-                        <h2>Community</h2>
-                    </Link>
-                </div>}
-                <div className="text-xl font-semibold gap-12 flex">
+                </div>
+                <div className="text-xl font-semibold gap-12 flex items-center">
                     {isLoggedIn ? (
                         <>
                             <Link href="https://eventara-organizer.vercel.app" target="_blank">
@@ -103,9 +90,7 @@ const Navbar = () => {
                                 </button>
                             </Link>
                             <Link href="/profile">
-                                <button className="text-[#d1d1d1] border-2 px-5 rounded-lg hover:bg-[#d1d1d1] hover:text-black duration-200 py-2 border-[#d1d1d1]">
-                                    Profile
-                                </button>
+                                <User className="text-[#d1d1d1] w-8 h-8 hover:text-white duration-200 cursor-pointer" />
                             </Link>
                         </>
                     ) : (
@@ -127,3 +112,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

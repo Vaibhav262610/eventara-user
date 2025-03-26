@@ -24,13 +24,14 @@ const Page = () => {
                     setEvents(data);
 
                     // Generate random images AFTER component mounts
-                    const images = {};
-                    data.forEach(event => {
-                        images[event._id] = imageUrls[Math.floor(Math.random() * imageUrls.length)];
-                    });
-                    setRandomImages(images);
-                } else {
-                    console.error("Failed to fetch events:", response.status);
+                    //     const images = {};
+                    //     data.forEach(event => {
+                    //         images[event._id] = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+                    //     });
+                    //     setRandomImages(images);
+                    // } else {
+                    //     console.error("Failed to fetch events:", response.status);
+                    // }
                 }
             } catch (error) {
                 console.error("Error fetching events:", error);
@@ -84,22 +85,25 @@ const Page = () => {
             {filteredEvents.length > 0 ? (
                 <div className="w-full flex flex-wrap justify-center gap-6 mt-12">
                     {filteredEvents.map((event) => (
-                        <div key={event._id} className="bg-none shadow-lg rounded-lg p-6 max-w-[40rem] border border-white/10 cursor-pointer hover:border hover:border-blue-700 duration-200">
-                            <h2 className="text-2xl font-thin text-blue-700 nav">{event.name}</h2>
-                            <p className="text-gray-300">Hackathon</p>
-                            <div className="mt-12 flex flex-col font-bold">
-                                <span className="text-xl font-black text-gray-300">THEME</span>
-                                <div className="mt-2 inline-block text-gray-500 rounded-full text-xs">NO RESTRICTIONS</div>
+                        <Link href={`/event-dashboard/${event._id}`}>
+
+                            <div key={event._id} className="bg-none shadow-lg rounded-lg p-6 max-w-[40rem] border border-white/10 cursor-pointer hover:border hover:border-blue-700 duration-200">
+                                <h2 className="text-2xl font-thin text-blue-700 nav">{event.name}</h2>
+                                <p className="text-gray-300">Hackathon</p>
+                                <div className="mt-12 flex flex-col font-bold">
+                                    <span className="text-xl font-black text-gray-300">THEME</span>
+                                    <div className="mt-2 inline-block text-gray-500 rounded-full text-xs">NO RESTRICTIONS</div>
+                                </div>
+                                <div className="mt-12 items-center font-bold justify-start flex gap-[5rem]">
+                                    <span className="text-gray-300 rounded-full text-sm">OFFLINE</span>
+                                    <span className="text-gray-300 rounded-full text-sm">OPEN</span>
+                                    <span className="text-gray-300 rounded-full text-sm">STARTS 01/03/25</span>
+                                    <Link href={`/event-dashboard/${event._id}`}>
+                                        <button className="bg-blue-600 hover:bg-blue-700 duration-200 text-white px-7 py-3 font-semibold rounded-lg">Apply now</button>
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="mt-12 items-center font-bold justify-start flex gap-[5rem]">
-                                <span className="text-gray-300 rounded-full text-sm">OFFLINE</span>
-                                <span className="text-gray-300 rounded-full text-sm">OPEN</span>
-                                <span className="text-gray-300 rounded-full text-sm">STARTS 01/03/25</span>
-                                <Link href={`/event-dashboard/${event._id}`}>
-                                    <button className="bg-blue-600 hover:bg-blue-700 duration-200 text-white px-7 py-3 font-semibold rounded-lg">Apply now</button>
-                                </Link>
-                            </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             ) : (
