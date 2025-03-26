@@ -9,8 +9,47 @@ export default function Community() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const userId = "demo-user" // Replace with real user ID
-    const maxCharCount = 280
+    // const userId = "demo-user";
+    const maxCharCount = 280;
+    const [user, setUser] = useState(null)
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem("authToken");
+                if (!token) {
+                    router.push("/login");
+                    return;
+                }
+
+                const response = await fetch("/api/users/profile", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Invalid or expired token");
+                }
+
+                const data = await response.json();
+                setUser(data);
+                // console.log(user);
+
+                // console.log(user);
+                // console.log(user + data);
+
+                // console.log(data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserData();
+        fetchPosts()
+    }, []); // Empty dependency array ensures this runs once
+
 
     // Random gradient backgrounds for posts
     const gradients = [
@@ -20,10 +59,6 @@ export default function Community() {
         "bg-gradient-to-r from-indigo-500 to-purple-600",
         "bg-gradient-to-r from-red-500 to-pink-500",
     ]
-
-    useEffect(() => {
-        fetchPosts()
-    }, [])
 
     const fetchPosts = async () => {
         try {
@@ -137,7 +172,7 @@ export default function Community() {
                     <div className="flex gap-4">
                         <div className="hidden sm:block">
                             <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center text-xl font-bold">
-                                {userId.charAt(0).toUpperCase()}
+                                {/* {user.data.username.charAt(0).toUpperCase()} */}
                             </div>
                         </div>
                         <div className="flex-1">
@@ -281,4 +316,3 @@ export default function Community() {
         </div>
     )
 }
-
